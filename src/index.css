@@ -1,0 +1,106 @@
+/* ============================================================================
+   Fonts — Display: "Space Grotesk" (geometric, confident, great for a bold
+   name/role treatment) / Body: "Inter" (quiet, highly legible workhorse)
+   ============================================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --color-bg-main: #0f1115;
+  --color-bg-section: #15181d;
+  --color-bg-card: #1c2026;
+  --color-text-primary: #f1f3f5;
+  --color-text-secondary: #9ca3af;
+  --color-border: #2a2f36;
+  --color-accent: #c9b88a;
+  --color-accent-hover: #d8c99f;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Smooth Scroll لروابط الـ Navbar */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #0f1115;
+}
+
+/* Typewriter blinking cursor — opacity only, no transform/translate */
+.typewriter-cursor {
+  height: 0.9em;
+  animation: typewriter-blink 0.85s steps(1) infinite;
+}
+
+@keyframes typewriter-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Ensure native video controls remain visible for project videos */
+.video-controls-visible::-webkit-media-controls {
+  opacity: 1 !important;
+}
+.video-controls-visible::-webkit-media-controls-start-playback-button,
+.video-controls-visible::-webkit-media-controls-play-button,
+.video-controls-visible::-webkit-media-controls-fullscreen-button,
+.video-controls-visible::-webkit-media-controls-volume-slider,
+.video-controls-visible::-webkit-media-controls-timeline {
+  opacity: 1 !important;
+}
+.video-controls-visible::-webkit-media-controls-enclosure {
+  opacity: 1 !important;
+}
+.video-controls-visible::-webkit-media-controls-panel {
+  opacity: 1 !important;
+}
+.video-controls-visible::-webkit-media-controls-overlay-play-button {
+  opacity: 1 !important;
+}
+.video-controls-visible::-webkit-media-controls-panel {
+  visibility: visible !important;
+}
+.video-controls-visible::-webkit-media-controls { visibility: visible !important; }
+.video-controls-visible::-webkit-media-controls-panel { visibility: visible !important; }
+.video-controls-visible::-webkit-media-controls-enclosure { visibility: visible !important; }

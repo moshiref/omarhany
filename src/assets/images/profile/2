@@ -1,0 +1,40 @@
+<svg width="720" height="900" viewBox="0 0 720 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1C2026" />
+      <stop offset="100%" stop-color="#15181D" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#C9B88A" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#C9B88A" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="monoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D8C99F" />
+      <stop offset="100%" stop-color="#C9B88A" />
+    </linearGradient>
+  </defs>
+
+  <rect width="720" height="900" fill="url(#bgGrad)" />
+  <rect width="720" height="900" fill="url(#glow)" />
+
+  <!-- subtle pitch-line motif -->
+  <g stroke="#2A2F36" stroke-width="1.5" fill="none" opacity="0.6">
+    <circle cx="360" cy="450" r="150" />
+    <line x1="0" y1="450" x2="720" y2="450" />
+  </g>
+
+  <!-- monogram -->
+  <text x="360" y="470" font-family="Georgia, 'Times New Roman', serif" font-size="150" font-weight="500"
+        fill="url(#monoGrad)" text-anchor="middle" letter-spacing="4">OH</text>
+
+  <text x="360" y="560" font-family="Arial, sans-serif" font-size="20" letter-spacing="6"
+        fill="#9CA3AF" text-anchor="middle">OMAR HANY</text>
+
+  <!-- frame corner accents -->
+  <g stroke="#C9B88A" stroke-width="2" opacity="0.5">
+    <path d="M40 40 L40 100 M40 40 L100 40" />
+    <path d="M680 40 L680 100 M680 40 L620 40" />
+    <path d="M40 860 L40 800 M40 860 L100 860" />
+    <path d="M680 860 L680 800 M680 860 L620 860" />
+  </g>
+</svg>
