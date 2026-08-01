@@ -1,17 +1,19 @@
 import { motion } from "framer-motion";
 import projectsData from "../../data/projectsData";
 import VideoCard from "../common/VideoCard";
+import { useVideos } from "../../context/VideosContext";
 
 /**
  * Projects — Premium Video Gallery
  * ---------------------------------------------------------------------------
- * - يعرض 6 فيديوهات فقط (من projectsData) داخل بطاقات VideoCard مستقلة.
+ * - يعرض الفيديوهات من Supabase (مع fallback للبيانات المحلية) داخل بطاقات VideoCard مستقلة.
  * - لا يستخدم IPhoneFrame إطلاقًا — تصميم Gallery مستقل عن Experience.
  * - Grid متجاوب: 1 عمود موبايل | 2 تابلت | 3 ديسكتوب/لابتوب.
  * - لا يوجد Autoplay — كل فيديو يبدأ فقط عند ضغط المستخدم على Play.
  */
 function Projects() {
-  const { sectionLabel, heading, subheading, projects } = projectsData;
+  const { sectionLabel, heading, subheading } = projectsData;
+  const { videos, loading } = useVideos();
 
   return (
     <section
@@ -38,34 +40,40 @@ function Projects() {
           </p>
         </motion.div>
 
-        {/* ---------- Gallery Grid (6 Videos) ---------- */}
-        <motion.div
-          className="grid grid-cols-1 justify-items-center gap-10 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.08 } },
-          }}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={{
-                hidden: { opacity: 0, y: 24 },
-                show: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.55, ease: "easeOut" },
-                },
-              }}
-              className="flex w-full justify-center"
-            >
-              <VideoCard videoSrc={project.src} title={project.title} />
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* ---------- Gallery Grid ---------- */}
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+          </div>
+        ) : (
+          <motion.div
+            className="grid grid-cols-1 justify-items-center gap-10 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.08 } },
+            }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            {videos.map((video) => (
+              <motion.div
+                key={video.id}
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.55, ease: "easeOut" },
+                  },
+                }}
+                className="flex w-full justify-center"
+              >
+                <VideoCard videoSrc={video.video_url} title={video.title} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );

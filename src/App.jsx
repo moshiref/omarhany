@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { VideosProvider } from "./context/VideosContext";
 import LoadingScreen from "./components/common/LoadingScreen";
 import Navbar from "./components/common/Navbar";
 import StarBackground from "./components/common/StarBackground";
@@ -9,8 +11,10 @@ import Experience from "./components/sections/Experience";
 import Projects from "./components/sections/Projects";
 import Stats from "./components/sections/Stats";
 import Contact from "./components/sections/Contact";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 
-function App() {
+function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -44,6 +48,20 @@ function App() {
         </>
       )}
     </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <VideosProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Routes>
+      </VideosProvider>
+    </BrowserRouter>
   );
 }
 

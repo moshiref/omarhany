@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
-
-const stats = [
-  { value: "40+", label: "Content Pieces Created" },
-  { value: "20+", label: "Brand Collaborations" },
-  { value: "98%", label: "Content Performance" },
-  { value: "5.0 ⭐", label: "Client Rating" },
-];
+import { useVideos } from "../../context/VideosContext";
 
 function Stats() {
+  const { videosCount } = useVideos();
+  
+  const stats = [
+    { value: `${videosCount}+`, label: "Content Pieces Created" },
+    { value: "20+", label: "Brand Collaborations" },
+    { value: "98%", label: "Content Performance" },
+    { value: "5.0 ⭐", label: "Client Rating" },
+  ];
   return (
     <section
       id="statistics"
