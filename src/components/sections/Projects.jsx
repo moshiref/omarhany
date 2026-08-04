@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import projectsData from "../../data/projectsData";
 import VideoCard from "../common/VideoCard";
@@ -14,6 +15,16 @@ import { useVideos } from "../../context/VideosContext";
 function Projects() {
   const { sectionLabel, heading, subheading } = projectsData;
   const { videos, loading } = useVideos();
+  // Fallback: إذا فشل whileInView على الموبايل، نُظهر البطاقات تلقائيًا بعد فترة قصيرة
+  const [forceShow, setForceShow] = useState(false);
+
+  useEffect(() => {
+    if (!loading && videos.length > 0) {
+      // بعد 800ms من اكتمال التحميل، نُجبر الظهور إذا لم يحدث بالفعل
+      const timer = setTimeout(() => setForceShow(true), 800);
+      return () => clearTimeout(timer);
+    }
+  }, [loading, videos.length]);
 
   return (
     <section
@@ -47,14 +58,16 @@ function Projects() {
           </div>
         ) : (
           <motion.div
+            key={`projects-grid-${videos.length}`}
             className="grid grid-cols-1 justify-items-center gap-10 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10"
             variants={{
               hidden: {},
               show: { transition: { staggerChildren: 0.08 } },
             }}
             initial="hidden"
+            animate={forceShow ? "show" : undefined}
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.1 }}
           >
             {videos.map((video) => (
               <motion.div
